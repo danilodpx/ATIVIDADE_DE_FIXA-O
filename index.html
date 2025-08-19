@@ -8,11 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* * REGRAS DE CSS REATORADAS
-         * - Uso de variáveis (--cor-primaria, etc.) para facilitar a manutenção.
-         * - Simplificação de seletores e organização.
-         * - Adição de estilo para o link "Pular para o conteúdo" (acessibilidade).
-        */
         :root {
             --cor-fundo-principal: #f7fafc;
             --cor-fundo-secundaria: #ffffff;
@@ -43,7 +38,6 @@
             min-height: 100vh;
         }
 
-        /* Link "Pular para o conteúdo" para acessibilidade */
         .skip-link {
             position: absolute;
             top: -40px;
@@ -80,7 +74,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
         }
 
         header .logo {
@@ -193,6 +189,36 @@
         .badge-red { background-color: #fed7d7; color: #c53030; }
         .badge-purple { background-color: #e9d8fd; color: #805ad5; }
 
+        .price-table {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            text-align: left;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .price-table th, .price-table td {
+            padding: 1rem 1.5rem;
+        }
+        .price-table thead {
+            background-color: var(--cor-fundo-footer);
+            color: var(--cor-fundo-principal);
+        }
+        .price-table tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .price-table tbody tr:nth-child(even) {
+            background-color: var(--cor-fundo-secundaria);
+        }
+        .price-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        .price-table td:last-child {
+            font-weight: 700;
+        }
+
         footer {
             background-color: var(--cor-fundo-footer);
             color: var(--cor-texto-footer);
@@ -212,28 +238,25 @@
     </style>
 </head>
 <body>
-    <!-- Link para pular o menu de navegação, útil para leitores de tela -->
     <a href="#inicio" class="skip-link">Pular para o conteúdo principal</a>
 
     <header>
-        <!-- A tag <nav> agora tem um 'aria-label' para descrever seu propósito -->
-        <nav class="container" aria-label="Navegação principal">
+        <nav aria-label="Navegação principal">
             <a href="#inicio" class="logo">Rafa & Dan</a>
             <div>
                 <a href="#inicio">Início</a>
                 <a href="#cardapio">Cardápio</a>
+                <a href="#precos">Preços</a>
                 <a href="#contato">Contato</a>
             </div>
         </nav>
     </header>
 
-    <!-- O 'id' do conteúdo principal é o alvo do link "Pular para o conteúdo" -->
     <main id="conteudo-principal">
-        <!-- Cada seção agora é rotulada pelo seu título (h1/h2) para leitores de tela -->
         <section id="inicio" aria-labelledby="titulo-principal">
             <div class="container">
                 <h1 id="titulo-principal">Rafa & Dan Culinária Brasileira</h1>
-                <p>Bem-vindo ao nosso espaço digital! Aqui você encontrará uma seleção especial dos nossos melhores pratos, preparados com ingredientes frescos e muito carinho. Explore nossas opções e descubra novos sabores.</p>
+                <p>Bem-vindo ao nosso cardápio digital! Aqui você encontrará uma seleção especial dos nossos melhores pratos, preparados com ingredientes frescos e muito carinho. Explore nossas opções e descubra novos sabores.</p>
             </div>
         </section>
 
@@ -241,7 +264,6 @@
             <div class="container">
                 <h2 id="titulo-cardapio">Nosso Cardápio</h2>
                 <div class="card-grid">
-                    <!-- Cada <article> tem um 'aria-label' para anunciar claramente o prato -->
                     <article class="card" aria-label="Prato: Feijoada">
                         <img src="img/feijoada.png" alt="Prato de feijoada completa com arroz, couve e laranja.">
                         <div class="card-body">
@@ -283,6 +305,43 @@
                         </div>
                     </article>
                 </div>
+            </div>
+        </section>
+
+        <section id="precos" aria-labelledby="titulo-precos">
+            <div class="container">
+                <h2 id="titulo-precos">Tabela de Preços</h2>
+                <table class="price-table">
+                    <caption class="skip-link">Tabela com nome dos pratos e seus respectivos valores.</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Prato</th>
+                            <th scope="col">Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Feijoada</td>
+                            <td>R$ 45,90</td>
+                        </tr>
+                        <tr>
+                            <td>Virado à Paulista</td>
+                            <td>R$ 42,90</td>
+                        </tr>
+                        <tr>
+                            <td>Galinhada</td>
+                            <td>R$ 39,90</td>
+                        </tr>
+                        <tr>
+                            <td>Baião de Dois</td>
+                            <td>R$ 38,90</td>
+                        </tr>
+                        <tr>
+                            <td>Brigadeiro (unidade)</td>
+                            <td>R$ 5,00</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
