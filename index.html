@@ -4,70 +4,359 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rafa & Dan Culinária Brasileira</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        :root {
+            --cor-fundo-principal: #f7fafc;
+            --cor-fundo-secundaria: #ffffff;
+            --cor-fundo-card: #f7fafc;
+            --cor-fundo-footer: #2d3748;
+            
+            --cor-texto-principal: #2d3748;
+            --cor-texto-secundario: #718096;
+            --cor-texto-titulo-card: #1a202c;
+            --cor-texto-card: #4a5568;
+            --cor-texto-footer: #a0aec0;
+            --cor-link-hover: #4299e1;
+
+            --fonte-principal: 'Inter', sans-serif;
         }
-        /* Adiciona rolagem suave */
+
         html {
             scroll-behavior: smooth;
         }
+
+        body {
+            font-family: var(--fonte-principal);
+            margin: 0;
+            background-color: var(--cor-fundo-principal);
+            color: var(--cor-texto-principal);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        main {
+            flex-grow: 1;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        header {
+            background-color: var(--cor-fundo-secundaria);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        header .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--cor-texto-titulo-card);
+            text-decoration: none;
+        }
+
+        header nav a {
+            color: var(--cor-texto-card);
+            text-decoration: none;
+            margin-left: 1rem;
+        }
+
+        header nav a:hover {
+            color: var(--cor-link-hover);
+        }
+
+        section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        #cardapio {
+            background-color: var(--cor-fundo-secundaria);
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            color: var(--cor-texto-secundario);
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            text-align: left;
+        }
+
+        @media (min-width: 768px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .card-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            background-color: var(--cor-fundo-card);
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 14rem;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--cor-texto-titulo-card);
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: var(--cor-texto-card);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            margin-bottom: 0.5rem;
+        }
+        .badge-blue { background-color: #bee3f8; color: #2b6cb0; }
+        .badge-green { background-color: #c6f6d5; color: #2f855a; }
+        .badge-yellow { background-color: #faf089; color: #b7791f; }
+        .badge-red { background-color: #fed7d7; color: #c53030; }
+        .badge-purple { background-color: #e9d8fd; color: #805ad5; }
+
+        .price-table {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            text-align: left;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        .price-table th, .price-table td {
+            padding: 1rem 1.5rem;
+        }
+        .price-table thead {
+            background-color: var(--cor-fundo-footer);
+            color: var(--cor-fundo-principal);
+        }
+        .price-table tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .price-table tbody tr:nth-child(even) {
+            background-color: var(--cor-fundo-secundaria);
+        }
+        .price-table tbody tr:last-child {
+            border-bottom: none;
+        }
+        .price-table td:last-child {
+            font-weight: 700;
+        }
+
+        footer {
+            background-color: var(--cor-fundo-footer);
+            color: var(--cor-texto-footer);
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+
+        footer p {
+            font-size: 1rem;
+            color: var(--cor-texto-footer);
+        }
+
+        footer .text-sm {
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 flex flex-col min-h-screen">
+<body>
+    <a href="#inicio" class="skip-link">Pular para o conteúdo principal</a>
 
-    <!-- Header / Cabeçalho -->
-    <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-10">
-        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold text-gray-900 dark:text-white">Rafa & Dan</a>
-            <div class="space-x-4">
-                <a href="#inicio" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">Início</a>
-                <a href="#cardapio" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">Cardápio</a>
-                <a href="#contato" class="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">Contato</a>
+    <header>
+        <nav aria-label="Navegação principal">
+            <a href="#inicio" class="logo">Rafa & Dan</a>
+            <div>
+                <a href="#inicio">Início</a>
+                <a href="#cardapio">Cardápio</a>
+                <a href="#precos">Preços</a>
+                <a href="#contato">Contato</a>
             </div>
         </nav>
     </header>
 
-    <!-- Conteúdo Principal -->
-    <main class="flex-grow">
-        <!-- Seção Início -->
-        <section id="inicio" class="container mx-auto px-4 py-16 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                Rafa & Dan Culinária Brasileira
-            </h1>
-            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Bem-vindo ao nosso espaço digital! Aqui você encontrará uma seleção especial dos nossos melhores pratos, preparados com ingredientes frescos e muito carinho. Explore nossas opções e descubra novos sabores.
-            </p>
-        </section>
-
-        <!-- Seção Cardápio -->
-        <section id="cardapio" class="bg-white dark:bg-gray-800 py-16">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Nosso Cardápio</h2>
-                <!-- O conteúdo do cardápio virá aqui -->
-                <p class="text-gray-600 dark:text-gray-400">Em breve, a lista completa de nossos pratos deliciosos.</p>
+    <main id="conteudo-principal">
+        <section id="inicio" aria-labelledby="titulo-principal">
+            <div class="container">
+                <h1 id="titulo-principal">Rafa & Dan Culinária Brasileira</h1>
+                <p>Bem-vindo ao nosso cardápio digital! Aqui você encontrará uma seleção especial dos nossos melhores pratos, preparados com ingredientes frescos e muito carinho. Explore nossas opções e descubra novos sabores.</p>
             </div>
         </section>
 
-        <!-- Seção Contato -->
-        <section id="contato" class="py-16">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">Entre em Contato</h2>
-                <!-- O formulário de contato virá aqui -->
-                <p class="text-gray-600 dark:text-gray-400">Fale conosco para reservas e eventos.</p>
+        <section id="cardapio" aria-labelledby="titulo-cardapio">
+            <div class="container">
+                <h2 id="titulo-cardapio">Nosso Cardápio</h2>
+                <div class="card-grid">
+                    <article class="card" aria-label="Prato: Feijoada">
+                        <img src="img/feijoada.png" alt="Prato de feijoada completa com arroz, couve e laranja.">
+                        <div class="card-body">
+                            <span class="badge badge-blue">Culinária Brasileira</span>
+                            <h3>Feijoada</h3>
+                            <p>Feijão preto com carnes selecionadas, acompanhado de arroz, couve refogada, farofa e laranja. O sabor do sábado em qualquer dia.</p>
+                        </div>
+                    </article>
+                    <article class="card" aria-label="Prato: Virado à Paulista">
+                        <img src="img/virado_paulista.webp" alt="Prato de virado à paulista com bisteca, tutu e banana frita.">
+                        <div class="card-body">
+                            <span class="badge badge-green">Culinária Paulista</span>
+                            <h3>Virado à Paulista</h3>
+                            <p>Tradicional combinação com tutu de feijão, bisteca suína, banana frita, couve, arroz e ovo. Conforto e história em um prato.</p>
+                        </div>
+                    </article>
+                    <article class="card" aria-label="Prato: Galinhada">
+                        <img src="img/galinhada.jpg" alt="Panela com galinhada mineira, com frango e arroz amarelhinho.">
+                        <div class="card-body">
+                            <span class="badge badge-yellow">Culinária Mineira</span>
+                            <h3>Galinhada</h3>
+                            <p>Arroz soltinho e frango suculento cozidos juntos com açafrão, pimentões e ervas. Sabor caseiro que abraça.</p>
+                        </div>
+                    </article>
+                    <article class="card" aria-label="Prato: Baião de Dois">
+                        <img src="img/baiao_de_dois.jpg" alt="Tigela com baião de dois, queijo coalho e cheiro verde.">
+                        <div class="card-body">
+                            <span class="badge badge-red">Culinária Nordestina</span>
+                            <h3>Baião de Dois</h3>
+                            <p>Feijão-de-corda e arroz com queijo coalho, bacon e coentro. Aroma e identidade do Nordeste em cada garfada.</p>
+                        </div>
+                    </article>
+                    <article class="card" aria-label="Prato: Brigadeiro">
+                        <img src="img/brigadeiro.jpg" alt="Vários brigadeiros tradicionais cobertos com granulado de chocolate.">
+                        <div class="card-body">
+                            <span class="badge badge-purple">Doce Nacional</span>
+                            <h3>Brigadeiro</h3>
+                            <p>O clássico docinho brasileiro: cremoso, chocolatudo e irresistível. Ideal para fechar a refeição com chave de ouro.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="precos" aria-labelledby="titulo-precos">
+            <div class="container">
+                <h2 id="titulo-precos">Tabela de Preços</h2>
+                <table class="price-table">
+                    <caption class="skip-link">Tabela com nome dos pratos e seus respectivos valores.</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Prato</th>
+                            <th scope="col">Preço</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Feijoada</td>
+                            <td>R$ 45,90</td>
+                        </tr>
+                        <tr>
+                            <td>Virado à Paulista</td>
+                            <td>R$ 42,90</td>
+                        </tr>
+                        <tr>
+                            <td>Galinhada</td>
+                            <td>R$ 39,90</td>
+                        </tr>
+                        <tr>
+                            <td>Baião de Dois</td>
+                            <td>R$ 38,90</td>
+                        </tr>
+                        <tr>
+                            <td>Brigadeiro (unidade)</td>
+                            <td>R$ 5,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="contato" aria-labelledby="titulo-contato">
+            <div class="container">
+                <h2 id="titulo-contato">Entre em Contato</h2>
+                <p>Fale conosco para reservas e eventos.</p>
             </div>
         </section>
     </main>
 
-    <!-- Footer / Rodapé -->
-    <footer class="bg-gray-800 text-white">
-        <div class="container mx-auto px-4 py-6 text-center text-gray-400">
+    <footer>
+        <div class="container">
             <p>&copy; 2025 Rafa & Dan Culinária Brasileira. Todos os direitos reservados.</p>
-            <p class="text-sm mt-1">Feito com ❤️ para nossos clientes.</p>
+            <p class="text-sm">Feito com ❤️ para nossos clientes.</p>
         </div>
     </footer>
 
